@@ -21,8 +21,13 @@ steps:
     npm install
     ng build
   displayName: 'npm install and build'
-- task: PublishPipelineArtifact@1
+- task: AzureWebApp@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
-    artifact: 'site'
-    publishLocation: 'pipeline'
+    azureSubscription: 'Pay-As-You-Go(1f73d95e-9d8e-4003-b297-69c2889239c8)'
+    appType: 'webAppLinux'
+    appName: 'pshephe2-appservice-poc'
+    deployToSlotOrASE: true
+    resourceGroupName: 'AppService'
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    runtimeStack: 'NODE|16-lts'
